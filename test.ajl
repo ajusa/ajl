@@ -1,0 +1,11 @@
+import iostream, string
+
+func asdf(string thing): void
+	cout << "I love the void"
+func main(): void
+	cout << "My name is arham"
+	bool arham = true
+	if arham: cout << "ya \n"
+	include other.ajl
+	asdf("hello")
+
