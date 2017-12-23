@@ -1,7 +1,11 @@
 import osproc, os, strutils, sequtils
 proc impToInc(imp:string):string = 
     var s = imp.replace("import ", "").split(",")
-    for i in 0..s.high: s[i] = ("#include "&"<"&s[i].strip&">").strip
+    for i in 0..s.high:
+        if s[i].contains('"'): #for importing actual files
+            s[i] = ("#include "&s[i].strip).strip
+        else:
+            s[i] = ("#include "&"<"&s[i].strip&">").strip
     s.join("\n")
 
 proc imports(list: seq[string]): seq[string] = 
