@@ -4,26 +4,21 @@ class Rectangle:
     	int width, height
 	public:
 	    void set_values (int,int)
-	    func area():int return width*height
+	    int area() => return width*height
 
-func Rectangle::set_values(int x, int y): void
+void Rectangle::set_values(int x, int y) =>
 	width = x
 	height = y
 
-func asdf(string thing): void
+void asdf(string thing) =>
 	cout << "I love the void"
-func main(): int
+int main() =>
 	cout << "My name is arham"
 	var arham = true
 	vector<int> dog_ids
-	#number_of_dogs = 3;
 	for int i = 0, i < 3, i++: dog_ids.push_back(i)
-	for var elem in dog_ids:
-		cout << elem << endl
-	#cool comment, shouldn't get transferred or break
-	if arham: 
-		cout << "ya \n"
+	for var elem in dog_ids: cout << elem << endl
+	if arham: cout << "ya \n"
 	include other.ajl
 	asdf("hello")
 	if !arham: cout << "broke the code lol"
-	return 1

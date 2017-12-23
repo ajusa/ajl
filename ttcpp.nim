@@ -22,7 +22,7 @@ proc imports(list: seq[string]): seq[string] =
 var filename: string = paramStr(1)
 var src = readFile(filename)
 #actual code here
-var baseFile = "using namespace std;\n $code"
+var baseFile = "using namespace std;\n$code"
 var byLine = src.splitLines
 #Removing comments and replacing var with auto
 for i in countdown(byLine.high, byLine.low): 
@@ -32,22 +32,22 @@ for i in countdown(byLine.high, byLine.low):
 byLine = byLine.imports
 #brackets for flow statements and other tab deliminated things
 var flows = @["if ", "for "]
-for flow in flows:
-    var count = 0
-    var lookForFlow = false
-    for i in 0..byLine.high: 
-        if lookForFlow and byLine[i].count("\t") == count:
-            byLine[i-1] = byLine[i-1] & "\n"&'\t'.repeat(count)&"}"
-            lookForFlow = false
-        elif i==byLine.high and lookForFlow: 
-            byLine[i] = byLine[i] & "\n"&'\t'.repeat(count)&"}"
-            lookForFlow = false
+
+var count = 0
+var lookForFlow = false
+for i in 0..byLine.high: 
+    if lookForFlow and byLine[i].count("\t") == count:
+        byLine[i-1] = byLine[i-1] & "\n"&'\t'.repeat(count)&"}"
+        lookForFlow = false
+    elif i==byLine.high and lookForFlow: 
+        byLine[i] = byLine[i] & "\n"&'\t'.repeat(count)&"}"
+        lookForFlow = false
+    for flow in flows:
         if byLine[i].strip.startsWith(flow): #all of this code is super bad, but it works
-            for j in 0..(byLine[i].split(":")[0].count(",")):
-                byLine[i] = byLine[i].replace(",", ";")
+            for j in 0..(byLine[i].split(":")[0].count(",")): byLine[i] = byLine[i].replace(",", ";") #replace commas with semicolons (for loops)
             byLine[i] = byLine[i].replace(flow, flow&"(").replace(":", "){").replace(" in", ":")
             if i == byLine.high:
-                byLine[i] = byLine[i] & "}"
+                byLine[i] = byLine[i] & "\n"&'\t'.repeat(count)&"}"
             else:
                 count = byLine[i].count("\t")
                 lookForFlow = true
@@ -57,7 +57,7 @@ byLine = byLine.join("\n").splitLines
 for i in countdown(byLine.high, byLine.low): 
     if byLine[i].isNilOrWhitespace: byLine.delete(i)
 #functions
-var count = 0
+count = 0
 var lookForFunc = false
 for i in 0..byLine.high: 
     if lookForFunc and byLine[i].count("\t") <= count:
@@ -66,12 +66,10 @@ for i in 0..byLine.high:
     elif i==byLine.high and lookForFunc: 
         byLine[i] = byLine[i] & "\n"&'\t'.repeat(count)&"}"
         lookForFunc = false
-    if byLine[i].strip.startsWith("func"):
+    if "=>" in byLine[i].strip:
         count = byLine[i].count("\t")
         byLine[i] = byLine[i].replace("::", "$")
-        var Type = byLine[i].split(":")[1].strip
-        if " " in Type: Type = Type.split(" ")[0] #for inline functions
-        byLine[i] = byLine[i].replace(":", "{").replace(Type).replace("func", Type.strip)
+        byLine[i] = byLine[i].replace("=>", "{")
         byLine[i] = byLine[i].replace("$", "::")
         lookForFunc = true
 
