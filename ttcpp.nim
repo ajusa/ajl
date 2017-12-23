@@ -42,7 +42,9 @@ for flow in flows:
         elif i==byLine.high and lookForFlow: 
             byLine[i] = byLine[i] & "\n"&'\t'.repeat(count)&"}"
             lookForFlow = false
-        if byLine[i].strip.startsWith(flow):
+        if byLine[i].strip.startsWith(flow): #all of this code is super bad, but it works
+            for j in 0..(byLine[i].split(":")[0].count(",")):
+                byLine[i] = byLine[i].replace(",", ";")
             byLine[i] = byLine[i].replace(flow, flow&"(").replace(":", "){").replace(" in", ":")
             if i == byLine.high:
                 byLine[i] = byLine[i] & "}"
