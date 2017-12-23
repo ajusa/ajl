@@ -5,16 +5,12 @@ class Rectangle:
 	public:
 	    void set_values (int,int)
 	    int area() => return width*height
-
 void Rectangle::set_values(int x, int y) =>
 	width = x
 	height = y
-
 class Square from Rectangle:
 	int length
-	public:
-		void setSide(int x) => length = x
-
+	public: void setSide(int x) => length = x
 void asdf(string thing) =>
 	cout << "I love the void"
 int main() =>
@@ -22,6 +18,10 @@ int main() =>
 	rect.set_values(5,6)
 	cout << rect.area()
 	cout << "My name is arham"
+	var i = 0
+	while i<5:
+		cout << i << endl
+		i++
 	var arham = true
 	vector<int> dog_ids
 	for int i = 0, i < 3, i++: dog_ids.push_back(i)

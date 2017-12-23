@@ -16,9 +16,8 @@ void Rectangle::set_values(int x, int y) {
 };
 class Square : public Rectangle{
 	int length;
-	public:
-		void setSide(int x) { length = x;
-		}
+	public: void setSide(int x) { length = x;
+	}
 };
 void asdf(string thing) {
 	cout << "I love the void";
@@ -28,6 +27,11 @@ int main() {
 	rect.set_values(5,6);
 	cout << rect.area();
 	cout << "My name is arham";
+	auto i = 0;
+	while (i<5){
+		cout << i << endl;
+		i++;
+	};
 	auto arham = true;
 	vector<int> dog_ids;
 	for (int i = 0; i < 3; i++){ dog_ids.push_back(i);

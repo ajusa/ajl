@@ -28,6 +28,7 @@ var src = readFile(filename)
 #actual code here
 var baseFile = "using namespace std;\n$code"
 var byLine = src.splitLines
+#CPP embedding [TODO]
 #Removing comments and replacing var with auto
 for i in countdown(byLine.high, byLine.low): 
     if "#" in byLine[i].strip: 
@@ -36,7 +37,7 @@ for i in countdown(byLine.high, byLine.low):
 #Handling Imports and Includes
 byLine = byLine.imports
 #brackets for flow statements and other tab deliminated things
-var flows = @["if ", "for "]
+var flows = @["if ", "for ", "while "]
 
 var count = 0
 var lookForFlow = false
