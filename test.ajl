@@ -1,5 +1,5 @@
 import iostream, string
-
+include imp.ajl
 func asdf(string thing): void
 	cout << "I love the void"
 func main(): void
@@ -8,4 +8,4 @@ func main(): void
 	if arham: cout << "ya \n"
 	include other.ajl
 	asdf("hello")
-
+	if !arham: cout << "broke the code lol"
