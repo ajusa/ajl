@@ -17,18 +17,17 @@ proc imports(list: seq[string]): seq[string] =
             for j in tmp.low..tmp.high:
                 tmp[j] = space & tmp[j]
             cp.insert(tmp, i)
-            #cp[i] = cp[i].split("inc")[0] & readFile(cp[i].replace("include").strip)
-            #cp = imports(cp.join("\n").splitLines)
     return cp.join("\n").splitLines
 
 var filename: string = paramStr(1)
 var src = readFile(filename)
 #actual code here
-var baseFile = """
-using namespace std;
-$code
-"""
+var baseFile = "using namespace std;\n $code"
 var byLine = src.splitLines
+#Removing comments and replacing var with auto
+for i in countdown(byLine.high, byLine.low): 
+    if byLine[i].strip.startsWith("#"): byLine.delete(i)
+    byline[i] = byLine[i].replace("var", "auto")
 #Handling Imports and Includes
 byLine = byLine.imports
 #brackets for flow statements and other tab deliminated things
@@ -43,11 +42,13 @@ for flow in flows:
         elif i==byLine.high and lookForFlow: 
             byLine[i] = byLine[i] & "\n"&'\t'.repeat(count)&"}"
             lookForFlow = false
-        
         if byLine[i].strip.startsWith(flow):
-            count = byLine[i].count("\t")
             byLine[i] = byLine[i].replace(flow, flow&"(").replace(":", "){")
-            lookForFlow = true
+            if i == byLine.high:
+                byLine[i] = byLine[i] & "}"
+            else:
+                count = byLine[i].count("\t")
+                lookForFlow = true
 #Rebuilding the file
 byLine = byLine.join("\n").splitLines
 #Removing Empty lines
@@ -57,32 +58,43 @@ for i in countdown(byLine.high, byLine.low):
 var count = 0
 var lookForFunc = false
 for i in 0..byLine.high: 
-    if lookForFunc and byLine[i].count("\t") == count:
+    if lookForFunc and byLine[i].count("\t") <= count:
         byLine[i-1] = byLine[i-1] & "\n"&'\t'.repeat(count)&"}"
         lookForFunc = false
     elif i==byLine.high and lookForFunc: 
         byLine[i] = byLine[i] & "\n"&'\t'.repeat(count)&"}"
         lookForFunc = false
-    
     if byLine[i].strip.startsWith("func"):
         count = byLine[i].count("\t")
+        byLine[i] = byLine[i].replace("::", "$")
         var Type = byLine[i].split(":")[1]
-        byLine[i] = byLine[i].replace(":", "{").replace(Type).replace("func", Type)
+        byLine[i] = byLine[i].replace(":", "{").replace(Type).replace("func", Type.strip)
+        byLine[i] = byLine[i].replace("$", "::")
         lookForFunc = true
 
 #Rebuilding the file
 byLine = byLine.join("\n").splitLines
-
-
 #Removing Empty lines
 for i in countdown(byLine.high, byLine.low): 
     if byLine[i].isNilOrWhitespace: byLine.delete(i)
 
-
-
+#Classes
+count = 0
+var lookForClass = false
+for i in 0..byLine.high: 
+    if lookForClass and byLine[i].count("\t") <= count:
+        byLine[i-1] = byLine[i-1] & "\n"&'\t'.repeat(count)&"}"
+        lookForClass = false
+    elif i==byLine.high and lookForClass: 
+        byLine[i] = byLine[i] & "\n"&'\t'.repeat(count)&"}"
+        lookForClass = false
+    if byLine[i].strip.startsWith("class"):
+        count = byLine[i].count("\t")
+        byLine[i] = byLine[i].replace(":", "{")
+        lookForClass = true
 #Adding and tabs semicolons where needed
 for i in 0..byLine.high: 
-    if not byLine[i].isNilOrWhitespace and not byLine[i].strip.endsWith("{") and not byLine[i].contains("#include"):
+    if not byLine[i].isNilOrWhitespace and not byLine[i].strip.endsWith("{") and not byLine[i].contains("#include") and not byLine[i].strip.endsWith(":"):
         byLine[i] = byLine[i] & ";"
 
 src = baseFile % ["code", byLine.join("\n")] #last thing to do
