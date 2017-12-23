@@ -30,7 +30,8 @@ var baseFile = "using namespace std;\n$code"
 var byLine = src.splitLines
 #Removing comments and replacing var with auto
 for i in countdown(byLine.high, byLine.low): 
-    if byLine[i].strip.startsWith("#"): byLine.delete(i)
+    if "#" in byLine[i].strip: 
+        byLine[i] = byLine[i].split("#")[0]
     byline[i] = byLine[i].replace("var", "auto")
 #Handling Imports and Includes
 byLine = byLine.imports
@@ -97,6 +98,8 @@ for i in 0..byLine.high:
         count = byLine[i].count("\t")
         byLine[i] = byLine[i].replace(":", "{")
         lookForClass = true
+        if "from " in byLine[i]:
+            byLine[i] = byLine[i].replace("from ", ": public ")
 #Adding and tabs semicolons where needed
 for i in 0..byLine.high: 
     if not byLine[i].isNilOrWhitespace and not byLine[i].strip.endsWith("{") and not byLine[i].contains("#include") and not byLine[i].strip.endsWith(":"):
