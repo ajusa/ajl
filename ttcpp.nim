@@ -1,7 +1,7 @@
 import osproc, os, strutils, sequtils
 proc impToInc(imp:string):string = 
     var s = imp.replace("import ", "").split(",")
-    for i in 0..s.high: s[i] = "#include "&"<"&s[i].strip&">"
+    for i in 0..s.high: s[i] = ("#include "&"<"&s[i].strip&">").strip
     s.join("\n")
 
 proc imports(list: seq[string]): seq[string] = 
@@ -43,7 +43,7 @@ for flow in flows:
             byLine[i] = byLine[i] & "\n"&'\t'.repeat(count)&"}"
             lookForFlow = false
         if byLine[i].strip.startsWith(flow):
-            byLine[i] = byLine[i].replace(flow, flow&"(").replace(":", "){")
+            byLine[i] = byLine[i].replace(flow, flow&"(").replace(":", "){").replace(" in", ":")
             if i == byLine.high:
                 byLine[i] = byLine[i] & "}"
             else:
@@ -67,7 +67,8 @@ for i in 0..byLine.high:
     if byLine[i].strip.startsWith("func"):
         count = byLine[i].count("\t")
         byLine[i] = byLine[i].replace("::", "$")
-        var Type = byLine[i].split(":")[1]
+        var Type = byLine[i].split(":")[1].strip
+        if " " in Type: Type = Type.split(" ")[0] #for inline functions
         byLine[i] = byLine[i].replace(":", "{").replace(Type).replace("func", Type.strip)
         byLine[i] = byLine[i].replace("$", "::")
         lookForFunc = true
