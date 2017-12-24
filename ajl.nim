@@ -50,7 +50,7 @@ for i in 0..byLine.high:
             if tokens[j].contains(".."):
                 var toAdd = ""
                 var value = tokens[j].split("..")[0].strip #this is the first arg
-                if tokens[j].split("(")[1].strip.len > 1:
+                if tokens[j].split("..")[1].split("(")[1].strip.len > 1:
                     toAdd = ", "
                 tokens[j] = tokens[j].replace(value).replace("(", "("&value&toAdd).replace("..")
         byLine[i] = tokens.join(" ")

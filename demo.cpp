@@ -4,6 +4,10 @@ using namespace std;
 #include <iostream>
 template <typename T> 
 void print(T t) {
+	cout << t;
+};
+template <typename T> 
+void println(T t) {
 	cout << t << endl;
 };
 class Rectangle{
@@ -28,8 +32,7 @@ void asdf(string thing, int other) {
 int main() {
 	auto rect = Rectangle();
 	rect.set_values(5,6);
-	cout << rect.area();
-	cout << "My name is arham";
+	print(rect.area());
 	printf("Printf test");
 	auto temp= "other test";
 	printf(temp);
