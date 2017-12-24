@@ -56,20 +56,24 @@ for i in 0..byLine.high:
         byLine[i] = tokens.join(" ")
 
 #brackets for flow statements and other tab deliminated things
-var flows = @["if ", "for ", "while "]
+var flows = @["if ", "for ", "while ", "elif ", "else"]
 var count = 0
 var lookForFlow = false
 for i in 0..byLine.high: 
     if lookForFlow and byLine[i].count("\t") == count:
-        byLine[i-1] = byLine[i-1] & "\n"&'\t'.repeat(count)&"}"
+        byLine[i-1] = byLine[i-1] & "\n"&'\t'.repeat(count)&"}$"
         lookForFlow = false
     elif i==byLine.high and lookForFlow: 
-        byLine[i] = byLine[i] & "\n"&'\t'.repeat(count)&"}"
+        byLine[i] = byLine[i] & "\n"&'\t'.repeat(count)&"}$"
         lookForFlow = false
     for flow in flows:
         if byLine[i].strip.startsWith(flow): #all of this code is super bad, but it works
             for j in 0..(byLine[i].split(":")[0].count(",")): byLine[i] = byLine[i].replace(",", ";") #replace commas with semicolons (for loops)
-            byLine[i] = byLine[i].replace(flow, flow&"(").replace(":", "){").replace(" in", ":")
+            if flow == "else":
+                 byLine[i] = byLine[i].replace(":", "{")
+            else:
+                byLine[i] = byLine[i].replace(flow, flow&"(").replace(":", "){").replace(" in", ":").replace("elif ", "else if")
+
             if i == byLine.high:
                 byLine[i] = byLine[i] & "\n"&'\t'.repeat(count)&"}"
             else:
@@ -122,7 +126,7 @@ for i in 0..byLine.high:
 #Adding and tabs semicolons where needed
 for i in 0..byLine.high: 
     if not byLine[i].isNilOrWhitespace and not byLine[i].strip.endsWith("{") and not byLine[i].contains("#include") and not byLine[i].strip.endsWith(":") and not byLine[i].contains("template"):
-        byLine[i] = byLine[i] & ";"
+        byLine[i] = (byLine[i] & ";").replace("$;")
 
 src = baseFile % ["code", byLine.join("\n")] #last thing to do
 writeFile(filename.split(".")[0]&".cpp", src)

@@ -22,6 +22,10 @@ int main() =>
 	vector<int> dog_ids
 	for int i = 0, i < 3, i++: dog_ids.push_back(i)
 	for var elem in dog_ids: cout << elem << endl
-	if arham: cout << "ya \n"
+	if !arham: 
+		cout << "ya \n"
+	elif true:
+		println("else ifs work just fine as well")
 	asdf("hello", 2)
 	if !arham: cout << "broke the code lol"
+	else: println("else statements are good to go!")

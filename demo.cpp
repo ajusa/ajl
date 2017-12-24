@@ -41,16 +41,22 @@ int main() {
 	while (i<5){
 		cout << i << endl;
 		i++;
-	};
+	}
 	auto arham = true;
 	vector<int> dog_ids;
 	for (int i = 0; i < 3; i++){ dog_ids.push_back(i);
-	};
+	}
 	for (auto elem: dog_ids){ cout << elem << endl;
-	};
-	if (arham){ cout << "ya \n";
-	};
+	}
+	if (!arham){ 
+		cout << "ya \n";
+	}
+	else if(true){
+		println("else ifs work just fine as well");
+	}
 	asdf("hello", 2);
 	if (!arham){ cout << "broke the code lol";
+	}
+	else{ println("else statements are good to go!");
 	};
 };
