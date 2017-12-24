@@ -33,9 +33,19 @@ var byLine = src.splitLines
 for i in countdown(byLine.high, byLine.low): 
     if "#" in byLine[i].strip: 
         byLine[i] = byLine[i].split("#")[0]
-    byline[i] = byLine[i].replace("var", "auto")
+    byLine[i] = byLine[i].replace("var", "auto")
 #Handling Imports and Includes
 byLine = byLine.imports
+#Turning methods into function calls, var.function = function(var)
+for i in 0..byLine.high:
+    if ".." in byLine[i]: #to optimize when we split
+        var tokens = byLine[i].split(" ")
+        for j in 0..tokens.high:
+            if tokens[j].contains(".."):
+                var value = tokens[j].split("..")[0].strip #this is the first arg
+                tokens[j] = tokens[j].replace(value).replace("(", "("&value).replace("..")
+        byLine[i] = tokens.join(" ")
+
 #brackets for flow statements and other tab deliminated things
 var flows = @["if ", "for ", "while "]
 

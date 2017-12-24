@@ -27,6 +27,9 @@ int main() {
 	rect.set_values(5,6);
 	cout << rect.area();
 	cout << "My name is arham";
+	printf("Printf test");
+	auto temp= "other test";
+	printf(temp);
 	auto i = 0;
 	while (i<5){
 		cout << i << endl;
