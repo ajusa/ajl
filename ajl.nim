@@ -68,7 +68,8 @@ for i in 0..byLine.high:
         lookForFlow = false
     for flow in flows:
         if byLine[i].strip.startsWith(flow): #all of this code is super bad, but it works
-            for j in 0..(byLine[i].split(":")[0].count(",")): byLine[i] = byLine[i].replace(",", ";") #replace commas with semicolons (for loops)
+            if flow == "for ": 
+                for j in 0..(byLine[i].split(":")[0].count(",")): byLine[i] = byLine[i].replace(",", ";") #replace commas with semicolons (for loops)
             if flow == "else":
                  byLine[i] = byLine[i].replace(":", "{")
             else:
