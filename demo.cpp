@@ -29,7 +29,7 @@ class Square : public Rectangle{
 void asdf(string thing, int other) {
 	cout << "I love the void";
 };
-int main() {
+int main (){
 	auto rect = Rectangle();
 	rect.set_values(5,6);
 	print(rect.area());

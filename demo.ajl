@@ -6,7 +6,7 @@ class Square from Rectangle:
 	public: void setSide(int x) => length = x
 void asdf(string thing, int other) =>
 	cout << "I love the void"
-int main() =>
+int main =>
 	var rect = Rectangle()
 	rect.set_values(5,6)
 	rect.area()..print()

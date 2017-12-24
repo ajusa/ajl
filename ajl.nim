@@ -99,6 +99,7 @@ for i in 0..byLine.high:
         byLine[i] = byLine[i].replace("::", "$")
         byLine[i] = byLine[i].replace("=>", "{")
         byLine[i] = byLine[i].replace("$", "::")
+        if not ("(" in byLine[i] and ")" in byLine[i]): byLine[i] = byLine[i].replace("{", "(){")
         lookForFunc = true
 
 #Rebuilding the file
