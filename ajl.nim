@@ -11,9 +11,9 @@ proc impToInc(imp:string):string =
 proc imports(list: seq[string]): seq[string] = 
     var cp = list
     for i in countdown(cp.high, cp.low): 
-        if "import" in cp[i]: 
+        if cp[i].strip.startsWith("import"): 
             cp[i] = impToInc(cp[i]) & "\n" 
-        if "include" in cp[i] and not cp[i].contains("#"):
+        if cp[i].strip.startsWith("include") and not cp[i].contains("#"):
             var space = cp[i].split("inc")[0]
             var file = readFile(cp[i].replace("include").strip)
             var tmp = imports(file.splitLines)
@@ -36,19 +36,27 @@ for i in countdown(byLine.high, byLine.low):
     byLine[i] = byLine[i].replace("var", "auto")
 #Handling Imports and Includes
 byLine = byLine.imports
+#Removing comments and replacing var with auto, making sure not to clear any imports
+for i in countdown(byLine.high, byLine.low): 
+    if "#" in byLine[i].strip and not byLine[i].strip.contains("#include"): 
+        byLine[i] = byLine[i].split("#")[0]
+    byLine[i] = byLine[i].replace("var", "auto")
 #Turning methods into function calls, var.function = function(var)
+#This is probably the worst way of doing this. Needs to be rewritten to handle more cases
 for i in 0..byLine.high:
     if ".." in byLine[i]: #to optimize when we split
         var tokens = byLine[i].split(" ")
         for j in 0..tokens.high:
             if tokens[j].contains(".."):
+                var toAdd = ""
                 var value = tokens[j].split("..")[0].strip #this is the first arg
-                tokens[j] = tokens[j].replace(value).replace("(", "("&value).replace("..")
+                if tokens[j].split("(")[1].strip.len > 1:
+                    toAdd = ", "
+                tokens[j] = tokens[j].replace(value).replace("(", "("&value&toAdd).replace("..")
         byLine[i] = tokens.join(" ")
 
 #brackets for flow statements and other tab deliminated things
 var flows = @["if ", "for ", "while "]
-
 var count = 0
 var lookForFlow = false
 for i in 0..byLine.high: 
