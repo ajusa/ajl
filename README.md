@@ -26,7 +26,7 @@ C++ is allowed, and speed is key.
 3. Use the binary similarly to the steps outlines above.
 
 ## Guide[WIP]
-**Indentation and Syntax Highlighting**
+**Indentation and Syntax Highlighting:**
 At this point in time, only tabs are allowed. Tabs are used to determine when statements end.
 There is currently no syntax highlighting avalible. If someone creates one, feel free to make an issue and I'll add it to this README.
 For now, I reccomend Nim highlighting, or Python.
