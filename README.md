@@ -20,6 +20,11 @@ C++ is allowed, and speed is key.
 4. To build a file, do `ajl filename.ajl`, and it will spit out a filename.cpp and a.exe, which is your executable. It will also run the code right after.
 
 ## Guide[WIP]
+**Indentation and Syntax Highlighting**
+At this point in time, only tabs are allowed. Tabs are used to determine when statements end.
+There is currently no syntax highlighting avalible. If someone creates one, feel free to make an issue and I'll add it to this README.
+For now, I reccomend Nim highlighting, or Python.
+
 **Hello World!**
 ```Nim
 include std/io.ajl
@@ -55,7 +60,6 @@ var i = 0
 while i<5:
 	println(i)
 	i++
-
 vector<int> dog_ids # note, this will require you to "import vector" in your file
 for int i = 0, i < 3, i++: 
 	dog_ids.push_back(i)
