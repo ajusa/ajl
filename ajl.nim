@@ -121,7 +121,7 @@ for i in 0..byLine.high:
             byLine[i] = byLine[i].replace("from ", ": public ")
 #Adding and tabs semicolons where needed
 for i in 0..byLine.high: 
-    if not byLine[i].isNilOrWhitespace and not byLine[i].strip.endsWith("{") and not byLine[i].contains("#include") and not byLine[i].strip.endsWith(":"):
+    if not byLine[i].isNilOrWhitespace and not byLine[i].strip.endsWith("{") and not byLine[i].contains("#include") and not byLine[i].strip.endsWith(":") and not byLine[i].contains("template"):
         byLine[i] = byLine[i] & ";"
 
 src = baseFile % ["code", byLine.join("\n")] #last thing to do

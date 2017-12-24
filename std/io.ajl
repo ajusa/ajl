@@ -1,0 +1,6 @@
+import iostream
+template <typename T> 
+void print(T t) =>
+	cout << t
+void println(T t) =>
+	cout << t << endl

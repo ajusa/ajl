@@ -1,7 +1,11 @@
 using namespace std;
-#include <iostream>
 #include <string>
 #include <vector>
+#include <iostream>
+template <typename T> 
+void print(T t) {
+	cout << t << endl;
+};
 class Rectangle{
 	int width, height;
 	public:

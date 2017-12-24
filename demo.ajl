@@ -1,4 +1,5 @@
-import iostream, string, vector
+import string, vector
+include std/io.ajl
 include imported.ajl
 class Square from Rectangle:
 	int length
@@ -8,8 +9,7 @@ void asdf(string thing, int other) =>
 int main() =>
 	var rect = Rectangle()
 	rect.set_values(5,6)
-	cout << rect.area()
-	cout << "My name is arham"
+	rect.area()..print()
 	printf("Printf test")
 	var temp= "other test"
 	temp..printf()
