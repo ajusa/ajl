@@ -132,5 +132,5 @@ for i in 0..byLine.high:
 
 src = baseFile % ["code", byLine.join("\n")] #last thing to do
 writeFile(filename.split(".")[0]&".cpp", src)
-echo execProcess("g++ "& filename.split(".")[0]&".cpp")
-echo execProcess("a.exe")
+#echo execProcess("g++ "& filename.split(".")[0]&".cpp")
+#echo execProcess("a.exe")

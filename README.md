@@ -17,7 +17,13 @@ C++ is allowed, and speed is key.
 1. Make sure that you have g++ installed on your system. If you don't, you can get it for Windows [here](http://www1.cmc.edu/pages/faculty/alee/g++/g++.html).
 2. Check that it is on your PATH by typing `g++ -v`. If it isn't, add it
 3. Clone this repository, or hit the download zip button. Extract, and add the directory to your PATH. (Note, you may need the contents of the folder in your project. Not sure yet)
-4. To build a file, do `ajl filename.ajl`, and it will spit out a filename.cpp and a.exe, which is your executable. It will also run the code right after.
+4. To build a file, do `ajl filename.ajl`, and it will spit out a filename.cpp. 
+5. To compile a file, do `g++ filename.cpp`, and run the a.exe that is generated.
+
+### Other Operating Systems
+1. Find the best way to install [Nim](https://nim-lang.org/)
+2. Run `nim c ajl.nim`
+3. Use the binary similarly to the steps outlines above.
 
 ## Guide[WIP]
 **Indentation and Syntax Highlighting**
