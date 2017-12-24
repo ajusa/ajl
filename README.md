@@ -43,7 +43,7 @@ while i<5:
 	println(i)
 	i++
 
-vector<int> dog_ids #note, this will require you to "import vector" in your file
+vector<int> dog_ids # note, this will require you to "import vector" in your file
 for int i = 0, i < 3, i++: 
 	dog_ids.push_back(i)
 for var elem in dog_ids: println(elem)
@@ -51,8 +51,8 @@ for var elem in dog_ids: println(elem)
 
 **.. Operator**
 ```Nim
-println(elem) #or
-elem..println() #makes more sense when you realize that one cannot add methods to STL code in C++
+println(elem) # which is the same as...
+elem..println() # makes more sense when you realize that one cannot add methods to STL code in C++
 ```
 Anything that isn't covered here but works in C++, will most likely work. Keep in mind, the std namespace is used by default.
 
