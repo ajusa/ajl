@@ -56,7 +56,7 @@ for i in 0..byLine.high:
         byLine[i] = tokens.join(" ")
 
 #brackets for flow statements and other tab deliminated things
-var flows = @["if ", "for ", "while ", "elif ", "else"]
+var flows = @["if ", "for ", "while ", "elif ", "else", "switch "]
 var count = 0
 var lookForFlow = false
 for i in 0..byLine.high: 
@@ -127,7 +127,7 @@ for i in 0..byLine.high:
             byLine[i] = byLine[i].replace("from ", ": public ")
 #Adding and tabs semicolons where needed
 for i in 0..byLine.high: 
-    if not byLine[i].isNilOrWhitespace and not byLine[i].strip.endsWith("{") and not byLine[i].contains("#include") and not byLine[i].strip.endsWith(":") and not byLine[i].contains("template"):
+    if not byLine[i].strip.endsWith(",") and not byLine[i].isNilOrWhitespace and not byLine[i].strip.endsWith("{") and not byLine[i].contains("#include") and not byLine[i].strip.endsWith(":") and not byLine[i].contains("template"):
         byLine[i] = (byLine[i] & ";").replace("$;")
 
 src = baseFile % ["code", byLine.join("\n")] #last thing to do
