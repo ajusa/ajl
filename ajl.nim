@@ -56,16 +56,10 @@ for i in 0..byLine.high:
         byLine[i] = tokens.join(" ")
 
 #brackets for flow statements and other tab deliminated things
-var flows = @["if ", "for ", "while ", "elif ", "else", "switch "]
+var flows = @["if ", "for ", "while ", "else", "elif ", "switch "]
 var count = 0
 var lookForFlow = false
 for i in 0..byLine.high: 
-    if lookForFlow and byLine[i].count("\t") == count:
-        byLine[i-1] = byLine[i-1] & "\n"&'\t'.repeat(count)&"}$"
-        lookForFlow = false
-    elif i==byLine.high and lookForFlow: 
-        byLine[i] = byLine[i] & "\n"&'\t'.repeat(count)&"}$"
-        lookForFlow = false
     for flow in flows:
         if byLine[i].strip.startsWith(flow): #all of this code is super bad, but it works
             if flow == "for ": 
@@ -74,12 +68,16 @@ for i in 0..byLine.high:
                  byLine[i] = byLine[i].replace(":", "{")
             else:
                 byLine[i] = byLine[i].replace(flow, flow&"(").replace(":", "){").replace(" in", ":").replace("elif ", "else if")
-
             if i == byLine.high:
                 byLine[i] = byLine[i] & "\n"&'\t'.repeat(count)&"}"
             else:
                 count = byLine[i].count("\t")
-                lookForFlow = true
+                for j in (i+1)..byLine.high: 
+                    if byLine[j].count("\t") <= count:
+                        byLine[j-1] = byLine[j-1] & "\n"&'\t'.repeat(count)&"}$"
+                        break
+                    elif j==byLine.high: 
+                        byLine[j] = byLine[j] & "\n"&'\t'.repeat(count)&"}$"
 #Rebuilding the file
 byLine = byLine.join("\n").splitLines
 #Removing Empty lines
