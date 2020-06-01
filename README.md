@@ -1,11 +1,12 @@
 # AJL
 
-A simple whitespace-sensitive transpile to c++ language
+A simple whitespace-sensitive transpile to the C++ programming language
 ## Why?
 Why did I make this? After all, Nim exists, and the first version of this compiler is written in Nim. 
 
-AJL was created to address a specific problem I had: the USACO. I wanted to write python, but they said that "Python cannot solve all the test cases".
-While Nim does have a compile to C++ option, it is tied to the OS, and I didn't want to deal with cross compilation issues. Also, the Nim library took up roughly half the 
+AJL was created to address a specific problem I had: the United States of America Computing Olympiad (USACO), a coding competition for US schools.
+For one of their contests, I wanted to write Python, but they said that "Python cannot solve all the test cases".
+While Nim does have a compile to C++ option, at the time it seemed to be tied to the OS, and I didn't want to deal with cross compilation issues. Also, the Nim library took up roughly half the contest's
 limit on filesize.
 So, to show the USACO, I created my own programming language, spending more time to avoid writing C++...
 
@@ -13,17 +14,18 @@ Anyway, this will generate one C++ file, and that is it. It has full interop wit
 power of C++. I find that writing less code and reading less code leads to better algorithims and faster debugging, making it ideal for programming competitions where 
 C++ is allowed, and speed is key.
 
-## Installation
-1. Make sure that you have g++ installed on your system. If you don't, you can get it for Windows [here](http://www1.cmc.edu/pages/faculty/alee/g++/g++.html).
+## Installation on Windows
+1. Make sure that you have g++ installed on your system. If you don't, you can get it for Windows [here](https://www3.cs.stonybrook.edu/~alee/g++/g++.html).
 2. Check that it is on your PATH by typing `g++ -v`. If it isn't, add it
 3. Clone this repository, or hit the download zip button. Extract, and add the directory to your PATH. (Note, you may need the contents of the folder in your project. Not sure yet)
-4. To build a file, do `ajl filename.ajl`, and it will spit out a filename.cpp. 
+4. An `ajl.exe` is provided. To build a file, do `ajl filename.ajl`, and it will spit out a filename.cpp.
 5. To compile a file, do `g++ filename.cpp`, and run the a.exe that is generated.
 
-### Other Operating Systems
+## Installation on Other Operating Systems
 1. Find the best way to install [Nim](https://nim-lang.org/)
 2. Run `nim c ajl.nim`
-3. Use the binary similarly to the steps outlines above.
+3. To build a file, do `ajl filename.ajl`, and it will spit out a filename.cpp.
+4. To compile a file, do `g++ filename.cpp`, and run the a.exe that is generated.
 
 ## Guide[WIP]
 **Indentation and Syntax Highlighting:**
@@ -57,7 +59,7 @@ include std/io.ajl
 ```
 Import statements are for C++. This code turns each thing into "#include vector" and so on
 
-Include statements are built into the compiler. The compiler hunts for the file you are trying to include, and adds it to the source directly. It then processes it through the
+Include statements are processed by the AJL compiler. The compiler hunts for the file you are trying to include, and adds it to the source directly. It then processes it through the
 pipeline as well.
 
 **Loops**
@@ -104,6 +106,6 @@ class Square from Rectangle: # From signifies the inheritance
 Many C++ constructs (such as friends, or multiple inheritances) haven't been implemented yet, but it is rare to have to use them.
 I do plan on adding them some time in the future.
 
-Anything that isn't covered here but works in C++, will most likely work. Keep in mind, the std namespace is used by default.
+Anything that isn't covered here but works in C++, will most likely work. Keep in mind, the `std` namespace is used by default.
 
-For more examples, look at the demo.ajl file located in the root of this repository.
+For more examples, look at the [demo.ajl file](demo.ajl) located in the root of this repository.
